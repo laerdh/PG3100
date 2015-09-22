@@ -114,8 +114,8 @@ public class Oppgave5 extends JFrame implements ActionListener {
                     res.last();
                 }
                 showRows();
-            } catch (SQLException b5) {
-                b5.printStackTrace();
+            } catch (SQLException b4) {
+                b4.printStackTrace();
             }
         } else {
             System.exit(0);
