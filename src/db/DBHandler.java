@@ -33,7 +33,7 @@ public class DBHandler {
     }
 
     public ArrayList<String> getTable(String tableName) {
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         String sql = "SELECT * FROM " + tableName;
         String temp = "";
 
@@ -71,7 +71,7 @@ public class DBHandler {
     }
 
     public int averageSum(String tableName, String columnName) {
-        ArrayList<Integer> data = new ArrayList<Integer>();
+        ArrayList<Integer> data = new ArrayList<>();
         String sql = "SELECT " + columnName + " FROM " + tableName;
         int count = 0;
         int average = 0;
@@ -106,6 +106,8 @@ public class DBHandler {
 
     public String minimumSum() {
         String data = "";
+        String test1;
+        String test2;
 
         return data;
     }
