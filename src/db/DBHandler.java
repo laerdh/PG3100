@@ -70,7 +70,7 @@ public class DBHandler {
         return data;
     }
 
-    public int averageSum(String tableName, String columnName) {
+    public int getAverageSum(String tableName, String columnName) {
         ArrayList<Integer> data = new ArrayList<>();
         String sql = "SELECT " + columnName + " FROM " + tableName;
         int count = 0;
@@ -104,11 +104,41 @@ public class DBHandler {
         return average / count;
     }
 
-    public String minimumSum() {
-        String data = "";
-        String test1;
-        String test2;
+    // Refactor this method for use with user-specified tables and columns as input
+    public String[] getMinimumBalance() {
+        int min = 99999;
+        String sql = "SELECT saldo, fornavn, etternavn, personnr, kontonr FROM konto";
+        String[] data = new String[5];
 
+        try (Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(sql)) {
+            ResultSetMetaData rsmd = res.getMetaData();
+
+            while (res.next()) {
+                int tempBalance = res.getInt(1);
+                if (tempBalance < min) {
+                       min = tempBalance;
+                    for (int i = 1; i <= 2; i++) {
+                        String columnType = rsmd.getColumnTypeName(i + 3);
+
+                        // Check if columndata is String or int, parse to String if int
+                        switch (columnType) {
+                            case "CHAR":
+                                data[i + 2] = res.getString(i + 3);
+                                break;
+                            case "INT":
+                                data[i + 3] = String.valueOf(res.getInt(i + 3));
+                                break;
+                        }
+                    }
+                    data[0] = String.valueOf(min);
+                    data[1] = res.getString(2);
+                    data[2] = res.getString(3);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return data;
     }
 
